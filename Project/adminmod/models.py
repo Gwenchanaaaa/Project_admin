@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password
 
 
 # Create your models here.
@@ -40,6 +41,12 @@ class Signup(models.Model):
     registration_cert = models.FileField(upload_to='registration_certs/', verbose_name='Certificate of Registration (COR)')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        # Ensure that we are storing the plain-text password as entered
+        # Don't use set_password or hash the password here
+        super(Signup, self).save(*args, **kwargs)
+
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -53,11 +60,13 @@ class ViolationType(models.Model):
     violation_type = models.CharField(max_length=10, choices=VIOLATION_TYPE_CHOICES)
     description = models.TextField()
     guidelines = models.TextField()
+    sanction = models.CharField(max_length=255, null=True, blank=True)   # Add this new field
     sanction_period_value = models.IntegerField()
-    sanction_period_type = models.CharField(max_length=10, choices=[('Day', 'Day'), ('Week', 'Week'), ('Month', 'Month')])
+    sanction_period_type = models.CharField(max_length=10, choices=[('Hours', 'Hours'), ('Day', 'Day'), ('Week', 'Week'), ('Month', 'Month')])
 
     def __str__(self):
         return self.name
+
 
 class Report(models.Model):
     student = models.ForeignKey(Signup, on_delete=models.CASCADE)

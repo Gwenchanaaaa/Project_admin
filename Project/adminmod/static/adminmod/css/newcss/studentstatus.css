@@ -26,8 +26,8 @@
       .profile-picture {
         width: 100px;
         height: 100px;
-        object-fit: cover;  /* Scales and crops the image to fit nicely */
-        border-radius: 50%; /* Makes the image circular; remove this if a square shape is preferred */
+        object-fit: cover; 
+        border-radius: 50%; 
     }
   
       .info {

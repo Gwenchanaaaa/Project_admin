@@ -4,19 +4,21 @@
 {% load static %}
 <head>
  <title>Home</title>
- <link rel='stylesheet' href="{% static 'adminmod/css/studentstatus.css' %}">
+ <link rel='stylesheet' href="{% static 'adminmod/css/newcss/studentstatus.css' %}">
 </head>
 <body>
  
   <div class="container">
     <!-- Header Section -->
     <header class="header">
-      <img src="{% static 'adminmod/images/profile.png' %}" alt="Profile Picture" class="profile-picture" height="100" width="100">
+      <!-- Displaying the profile picture of the logged-in user -->
+      <img src="/{{ user.id_picture }}" alt="Profile Picture" class="profile-picture">
       <div class="info">
-        <h1>Juan Dela Cruz</h1>
-        <p>Year & Section:</p>
-        <p>Course:</p>
-        <p>Total Violations:</p>
+        <!-- Displaying the logged-in user's name -->
+        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        <p><strong>Year & Section:</strong> {{ user.section }}</p>
+        <p><strong>Course:</strong> {{ user.course }}</p>
+        <p><strong>Total Violations:</strong></p>
       </div>
     </header>
     
@@ -38,11 +40,11 @@
       <h2>Most Recent Offense:</h2>
       <div class="offense-details">
         <div class="offense-item">
-          <p><strong>Offense:</strong> mm/dd/yyyy</p>
+          <p><strong>Offense:</strong></p>
           <a href="{% url 'infopopup' %}" class="info-icon">i</a>
         </div>
         <div class="offense-item">
-          <p><strong>Sanction:</strong> Sanction</p>
+          <p><strong>Sanction:</strong></p>
         </div>
       </div>
     </section>

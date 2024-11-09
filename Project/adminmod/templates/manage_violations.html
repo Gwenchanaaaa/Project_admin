@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'adminmod/css/newcss/manage_violations.css' %}">
+<link rel="stylesheet" href="{% static 'adminmod/css/newcss/manage_violation.css' %}">
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,11 @@
     <h2>Manage Violations</h2>
     <form method="POST">
         {% csrf_token %}
+        
+        <!-- Render existing fields -->
         {{ form.as_p }}
+
+        
         <button type="submit">Add Violation</button>
     </form>
 

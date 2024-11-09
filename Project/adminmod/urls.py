@@ -1,5 +1,6 @@
 from django.urls import path
-
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -53,14 +54,14 @@ urlpatterns = [
     #user_role
     path("userrole/", views.userrole, name="userrole"),
     path("edituserrole/", views.edituserrole, name="edituserrole"),
-    path("adduserrole/", views.adduser, name="adduserrole"),
+    path("adduserrole/", views.adduser, name="adduser"),
     path("useraccount/",views.useraccount, name="useraccount"),
     
     path('retry-password/', views.retry_password, name='retry_password'),
     
 
     #login
-    path('', views.login, name='login'),
+    path('', views.login_view, name='login'),
     path('signup/', views.signup, name='signup'),
     path('reset/', views.reset, name='reset'),
     path('resetconfirmation/', views.resetconfirmation, name='resetconfirmation'),
@@ -73,7 +74,7 @@ urlpatterns = [
     path('monitorreport/'  , views.monitorrep, name='monitorreport'),
     path('reportsummarystudent/'   , views.reportsumstud, name='reportsummarystudent'),
     path('studentsettings/'    , views.studset, name='studentsettings'),
-    path('studentstatus/'     , views.studstat, name='studentstatus'),   
+    path('studentstatus/'     , views.student_status, name='studentstatus'),   
     path("infopopup3/", views.infopopup3, name="infopopup3"), 
 
     #guard and instructor mod
@@ -91,3 +92,6 @@ urlpatterns = [
     path('file-report/', views.file_report, name='file_report'),
     path('changepass/', views.changepass, name='changepass'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

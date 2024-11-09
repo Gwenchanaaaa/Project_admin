@@ -5,6 +5,9 @@ from .forms import SignupNow, ReportForm, ViolationTypeForm, UserForm
 from .models import DropdownOption, Signup, Course, Section, Report, ViolationType, User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.conf import settings
+
 import random
 import string
 
@@ -169,17 +172,43 @@ def useraccount(request):
 def login(request):
     return render(request, 'login/LOGIN.html')
 
+def login_view(request):
+    if request.method == 'POST':
+        idnumber = request.POST.get('id-number')
+        password = request.POST.get('password')
+        
+        try:
+            user = Signup.objects.get(idnumber=idnumber)
+            if password == user.password:  # Compare with plain text password
+                # Log in user (store user ID and course ID in session, for example)
+                request.session['user_id'] = user.id
+                request.session['course_id'] = user.course.id  # Only store course ID, not the full object
+                return redirect('studentstatus')  # Redirect to landing page
+            else:
+                error = "Invalid ID number or password."
+        except Signup.DoesNotExist:
+            error = "User not found."
+        
+        return render(request, 'login/LOGIN.html', {'error': error})  # Render login page with error
+    
+    return render(request, 'login/LOGIN.html')  # Initial GET request
 
-#def signup(request):
-    #if request.method == "POST":
-        #form = SignupNow(request.POST)
-        #form.save()
-        #return redirect("/")
-    #else:
-        #form = SignupNow()
-    #return render(request, 'login/Sign-up.html', {"form": form})
 
-#################################
+def student_status(request):
+    # Check if the user is logged in and has an ID in the session
+    user_id = request.session.get('user_id')  # Adjust based on your login session setup
+
+    if user_id:
+        # Retrieve the logged-in user's data
+        user = Signup.objects.get(id=user_id)
+        context = {
+            'user': user,
+            'MEDIA_URL': settings.MEDIA_URL,
+        }
+        return render(request, 'studentmod/Student Status.html', context)
+    else:
+        return redirect('login')  # Redirect to login page if not logged in
+
 
 def signup(request):
     if request.method == "POST":

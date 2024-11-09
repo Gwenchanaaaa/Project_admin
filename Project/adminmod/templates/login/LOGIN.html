@@ -10,13 +10,23 @@
         <img src="{% static 'adminmod/images/logo.png' %}" alt="Profile Picture Placeholder"/>
         <h1>WELCOME!</h1>
         <hr/>
-        <label for="id-number">ID Number:</label>
-        <input id="id-number" name="id-number" type="text"/>
         
-        <label for="password">Password:</label>
-        <input id="password" name="password" type="password"/>
+        <!-- Updated form starts here -->
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="id-number">ID Number:</label>
+            <input id="id-number" name="id-number" type="text" required />
         
-        <button type="button">LOG IN</button>
+            <label for="password">Password:</label>
+            <input id="password" name="password" type="password" required />
+            
+            <button type="submit">LOG IN</button>
+        </form>
+        
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <!-- Updated form ends here -->
         
         <div class="links">
             No Account? <a href="{% url 'signup' %}">Sign Up Here</a>

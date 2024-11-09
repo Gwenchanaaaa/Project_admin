@@ -28,7 +28,8 @@ class ReportForm(forms.ModelForm):
 class ViolationTypeForm(forms.ModelForm):
     class Meta:
         model = ViolationType
-        fields = ['name', 'violation_type', 'description', 'guidelines', 'sanction_period_value', 'sanction_period_type']
+        fields = ['name', 'violation_type', 'description', 'guidelines', 'sanction_period_value', 'sanction_period_type', 'sanction']
+
 
 class UserForm(forms.ModelForm):
     class Meta:

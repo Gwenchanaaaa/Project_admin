@@ -17,6 +17,49 @@ form {
     border: 1px solid #ccc;
 }
 
+/* Add these new styles for the form layout */
+.form-group {
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: start;
+    gap: 10px;
+}
+
+/* Style for labels */
+label {
+    font-weight: normal;
+    color: #2c3e50;
+}
+
+/* Style for inputs, selects, and textareas */
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Specific style for the Sanction input field */
+#sanction {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+/* Button Styles */
 button {
     background-color: #3498db;
     color: white;
@@ -25,6 +68,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
+    margin-top: 10px;
 }
 
 button:hover {
